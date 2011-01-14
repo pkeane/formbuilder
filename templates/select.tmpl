@@ -1,0 +1,7 @@
+<label for="${name}">${label}</label>
+<select name="${name}">
+<option value="">Select one</option>
+{{each(k,v) options}}
+<option value="${k}">${v}</option>
+{{/each}}
+</select>

@@ -1,0 +1,44 @@
+{
+  "elements" : [
+  {
+    "type":"text",
+      "label":"First Name",
+      "name":"firstname",
+    "options": {
+      "one":"One",
+      "two":"Two",
+      "three":"Three"
+    }
+  },
+  {
+    "type":"text",
+    "label":"Last Name",
+    "name":"lastname",
+    "options": {
+      "one":"One",
+      "two":"Two",
+      "three":"Three"
+    }
+  },
+  {
+    "type":"text",
+    "label":"Street Address",
+    "name":"street_address",
+    "options": {
+      "one":"One",
+      "two":"Two",
+      "three":"Three"
+    }
+  },
+  {
+    "type":"select",
+    "name":"zipcode",
+    "label":"zipcode",
+    "options": {
+      "one":"One",
+      "two":"Two",
+      "three":"Three"
+    }
+  }
+  ]
+}

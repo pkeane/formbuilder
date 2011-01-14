@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>basic template</title>
+<link rel="stylesheet" href="www/css/base.css">
+<link rel="stylesheet" href="www/css/style.css">
+<link rel="shortcut icon" href="/www/images/favicon.ico">
+<script src="www/js/json2.js"></script>
+<script src="www/js/jquery.js"></script>
+<script src="www/js/script.js"></script>
+</head>
+<body>
+
+<div id="header"><h1>formBuilder</h1></div>
+<div id="container">
+
+<h2>List</h2>
+
+<div>
+<ul contenteditable="true">
+<li>test</li>
+</ul>
+
+</div>
+
+<form>
+{{each els}}
+{{html $value}}
+{{/each}}
+<input type="submit" value="submit">
+</form>
+
+</div>
+</body>
+</html>
+
