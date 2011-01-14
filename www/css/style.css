@@ -18,6 +18,10 @@ h1, h2, h3, h4 {
 	font-family: 'Neuton', arial, serif;
 }
 
+h2 {
+  margin: 12px 0;
+}
+
 h3.msg {
 	color: #900;
 	margin: 10px 0 0 0;
@@ -49,7 +53,6 @@ label {
 a.delete {
 	color:#c00;
 }
-
 div#main {
 	margin 0;
 	background-color: #fff;
@@ -70,5 +73,13 @@ input.delete:hover {
 div.controls {
 	float: right;
 	margin: 6px 0;
+}
+
+ul#localObjs {
+  margin: 20px 0;
+}
+
+ul li {
+  margin: 6px 6px;
 }
 

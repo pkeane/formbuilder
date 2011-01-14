@@ -5,6 +5,7 @@ $(document).ready(function() {
   Dase.initForm();
   Dase.initForms();
   Dase.initFormDelete();
+  Dase.initLocalObjects();
 });
 
 Dase.getUUID = function() {
@@ -15,15 +16,28 @@ Dase.getUUID = function() {
   }).toUpperCase();
 };
 
+Dase.initLocalObjects = function() {
+  for (var i=0; i < localStorage.length; i++) {
+    var u = localStorage.key(i);
+    $('#localObjs').append('<li id="'+u+'"><a href="'+u+'">'+u+'</a></li>');
+    $('#'+u+' a').click( function() {
+      alert(localStorage.getItem($(this).attr('href')));
+      return false;
+    });
+  }
+};
+
 Dase.initForm = function() {
   $('form').submit(function() {
    // console.log($(this).serializeArray());
     var formdata = JSON.stringify($(this).serializeArray());
-    var uuid = Dase.getUUID();
-    localStorage.setItem(uuid,formdata);
-    for (var i=0; i < localStorage.length; i++) {
-        console.log(localStorage.key(i));
-    }
+    var u = Dase.getUUID();
+    localStorage.setItem(u,formdata);
+    $('#localObjs').append('<li id="'+u+'"><a href="'+u+'">'+u+'</a></li>');
+    $('#'+u+' a').click( function() {
+      alert(localStorage.getItem($(this).attr('href')));
+      return false;
+    });
     return false;
   });
 };
