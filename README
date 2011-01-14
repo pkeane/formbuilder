@@ -1,0 +1,4 @@
+specify a form in JSON
+run compile.js | ./format.sh > index.html
+now use the form w/ HTML localStorage
+
