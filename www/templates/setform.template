@@ -1,0 +1,5 @@
+<form action="#/sets" method="post">
+<label for="name">Data Set Name:</label>
+<input type="text" name="name">
+<input type="submit" value="create">
+</form>

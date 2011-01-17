@@ -9,7 +9,10 @@
     <script src="www/js/jquery.js"></script> 
     <script src="www/js/jquery.tmpl.js"></script> 
     <script src="www/js/sammy.js"></script>
-    <script src="www/js/script.js"></script>
+    <script src="www/js/plugins/sammy.template.js"></script>
+    <script src="www/js/plugins/sammy.json.js"></script>
+    <script src="www/js/plugins/sammy.storage.js"></script>
+    <script src="www/js/my-sammy-app.js"></script>
   </head> 
   <body> 
     <script id="objectTemplate" type="text/x-jquery-tmpl">      
@@ -18,22 +21,12 @@
       </li>
     </script>   
     <div id="header">
-      <h1>formBuilder</h1></div> 
+      <h1>DataForms</h1>
+        <a href="#/setform">new data set</a> | 
+        <a href="#/sets">list data sets</a> | 
+    </div> 
     <div id="container">  
-      <form>  
-        <label>Form Element</label>
-        <select name="type"> 
-          <option value="">Select Element Type</option>  
-          <option value="text">Text Box</option>  
-          <option value="textarea">Text Area</option>  
-          <option value="select">Drop Down</option> 
-          <option value="radio">Radio Buttons</option> 
-          <option value="checkbox">Check boxes</option> 
-          <option value="submit">Submit Button</option> 
-        </select>  
-        <input type="submit" value="add to form">
-      </form>        
-      <hr>
+      <div id="content"></div> 
     </div>
   </body>
 </html>

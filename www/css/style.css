@@ -1,6 +1,6 @@
 body {
 	background-color: #eee;
-	font-family: 'Cantarell', arial, serif;
+	font-family: 'verdana', arial, serif;
 	font-size: 15px;
 }
 
@@ -15,7 +15,7 @@ div#container {
 }
 
 h1, h2, h3, h4 {
-	font-family: 'Neuton', arial, serif;
+	font-family: 'trebuchet ms', arial, serif;
 }
 
 h2 {
@@ -29,21 +29,24 @@ h3.msg {
 
 div#header {
 	background-color: #fc0;
-	background-color: #cf0;
-	background-color: #070;
-	color: #000;
+	background-color: #004;
+	color: #fff;
 	font-size: 11px;
-	padding: 10px 15px;
+	padding: 5px 10px;
 	margin-bottom: 12px;
 }
 
 div#header h1 {
-	font-size: 30px;
-	font-weight: normal;
+	font-size: 24px;
 }
 
 div#header h1 a {
 	color: #4e2e28;
+	color: #fff;
+}
+
+div#header a {
+	color: #ccf;
 }
 
 label {
