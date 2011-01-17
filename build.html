@@ -1,0 +1,38 @@
+<!doctype html> 
+<html lang="en"> 
+  <head> 
+    <meta charset="utf-8"> 
+    <title>basic template</title> 
+    <link rel="stylesheet" href="www/css/base.css"> 
+    <link rel="stylesheet" href="www/css/style.css"> 
+    <link rel="shortcut icon" href="/www/images/favicon.ico"> 
+    <script src="www/js/jquery.js"></script> 
+    <script src="www/js/jquery.tmpl.js"></script> 
+    <script src="www/js/script.js"></script>
+  </head> 
+  <body> 
+    <script id="objectTemplate" type="text/x-jquery-tmpl">      
+      <li>
+      <a href="${key}">${key}</a>
+      </li>
+    </script>   
+    <div id="header">
+      <h1>formBuilder</h1></div> 
+    <div id="container">  
+      <form>  
+        <label>Form Element</label>
+        <select name="type"> 
+          <option value="">Select Element Type</option>  
+          <option value="text">Text Box</option>  
+          <option value="textarea">Text Area</option>  
+          <option value="select">Drop Down</option> 
+          <option value="radio">Radio Buttons</option> 
+          <option value="checkbox">Check boxes</option> 
+          <option value="submit">Submit Button</option> 
+        </select>  
+        <input type="submit" value="add to form">
+      </form>        
+      <hr>
+    </div>
+  </body>
+</html>
