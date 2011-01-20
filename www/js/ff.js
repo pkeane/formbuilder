@@ -24,19 +24,16 @@ function addTodo() {
 }
 
 Todo.indexedDB.open = function() {
-  //var request = indexedDB.open("todos","pkeane's todo lister");
-  var request = indexedDB.open("todos1");
+  var request = indexedDB.open("todos1","pkeane's todo lister");
   request.onsuccess = function(e) {   
     var v = "1.0";
-    //Todo.indexedDB.db = e.result;
-    Todo.indexedDB.db = request.result;
+    Todo.indexedDB.db = e.result || request.result;
     var db = Todo.indexedDB.db;
     if(v!= db.version) {
       var setVrequest = db.setVersion(v);
       // onsuccess is the only place we can create Object Stores
       setVrequest.onfailure = Todo.indexedDB.onerror;
       setVrequest.onsuccess = function(e) {
-        //var store = db.createObjectStore("todo",{keyPath: "timeStamp"});
         var store = db.createObjectStore("todo",{keyPath: "text"});
         Todo.indexedDB.getAllTodoItems();
       };
@@ -77,10 +74,10 @@ Todo.indexedDB.getAllTodoItems = function() {
   var cursorRequest = store.openCursor();
 
   cursorRequest.onsuccess = function(e) {
-    e = cursorRequest;
-    if(e.result == null) return;
-    renderTodo(e.result.value); // Defined a little later.
-    e.result.continue();
+    var result = e.result || cursorRequest.result;
+    if(result == null) return;
+    renderTodo(result.value); // Defined a little later.
+    result.continue();
   };
   cursorRequest.onerror = Todo.indexedDB.onerror;
 };
