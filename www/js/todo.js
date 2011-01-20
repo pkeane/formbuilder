@@ -30,9 +30,8 @@ function addTodo() {
 
 Todo.indexedDB.open = function() {
   //var request = indexedDB.open("todos","pkeane's todo lister");
-  var request = indexedDB.open("todos");
+  var request = indexedDB.open("todos1");
   request.onsuccess = function(e) {   
-    alert(e.result);
     var v = "1.0";
     Todo.indexedDB.db = e.result;
     var db = Todo.indexedDB.db;
@@ -41,10 +40,12 @@ Todo.indexedDB.open = function() {
       // onsuccess is the only place we can create Object Stores
       setVrequest.onfailure = Todo.indexedDB.onerror;
       setVrequest.onsuccess = function(e) {
-        var store = db.createObjectStore("todo",{keyPath: "timeStamp"});
+        //var store = db.createObjectStore("todo",{keyPath: "timeStamp"});
+        var store = db.createObjectStore("todo",{keyPath: "text"});
         Todo.indexedDB.getAllTodoItems();
       };
     }
+		//db.deleteObjectStore("todo");
     Todo.indexedDB.getAllTodoItems();
   };
   request.onfailure = Todo.indexedDB.onerror;
@@ -52,14 +53,16 @@ Todo.indexedDB.open = function() {
 
 Todo.indexedDB.addTodo = function(todoText) {
   var db = Todo.indexedDB.db;
-  var trans = db.transaction(["todo"], IDBTransaction.READ_WRITE, 0);
+  var trans = db.transaction(["todos1"], IDBTransaction.READ_WRITE, 0);
   var store = trans.objectStore("todo");
-  var request = store.put({
-    "text": todoText, 
-    "timeStamp" : new Date().getTime() 
-    });
+	var row = {
+		"text": todoText, 
+		"timeStamp" : new Date().getTime() 
+	};
+	var request = store.put(row);
   request.onsuccess = function(e) {
     console.log(e.value);
+		renderTodo(row);
   };
   request.onerror = function(e) {
     console.log(e.value);
@@ -71,7 +74,7 @@ Todo.indexedDB.getAllTodoItems = function() {
   todos.innerHTML = "";
 
   var db = Todo.indexedDB.db;
-  var trans = db.transaction(["todo"], IDBTransaction.READ_WRITE, 0);
+  var trans = db.transaction(["todos1"], IDBTransaction.READ_WRITE, 0);
   var store = trans.objectStore("todo");
 
   // Get everything in the store;
@@ -91,7 +94,6 @@ function renderTodo(row) {
   var a = document.createElement("a");
   var t = document.createTextNode();
   t.data = row.text;
-
   a.addEventListener("click", function(e) {
     Todo.indexedDB.deleteTodo(row.text);
   });
@@ -103,7 +105,7 @@ function renderTodo(row) {
 
 Todo.indexedDB.deleteTodo = function(id) {
   var db = Todo.indexedDB.db;
-  var trans = db.transaction(["todo"], IDBTransaction.READ_WRITE, 0);
+  var trans = db.transaction(["todos1"], IDBTransaction.READ_WRITE, 0);
   var store = trans.objectStore("todo");
   var request = store.delete(id);
   request.onsuccess = function(e) {
