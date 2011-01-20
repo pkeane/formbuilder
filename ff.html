@@ -1,0 +1,32 @@
+<!doctype html> 
+<html lang="en"> 
+  <head> 
+    <meta charset="utf-8"> 
+    <title>basic template</title> 
+    <link rel="stylesheet" href="www/css/base.css"> 
+    <link rel="stylesheet" href="www/css/style.css"> 
+    <link rel="shortcut icon" href="/www/images/favicon.ico"> 
+    <script src="www/js/jquery.js"></script> 
+    <script src="www/js/jquery.tmpl.js"></script> 
+    <script src="www/js/sammy.js"></script>
+    <script src="www/js/plugins/sammy.template.js"></script>
+    <script src="www/js/plugins/sammy.json.js"></script>
+    <script src="www/js/plugins/sammy.storage.js"></script>
+    <script src="www/js/ff.js"></script>
+  </head> 
+  <body> 
+    <div id="header">
+      <h1>IndexedDB Test</h1>
+    </div> 
+    <div id="container">  
+      <div id="content">
+
+        <input id="todo" name="todo" placeholder="What do you need to do?" style="width: 200px;" type="text">
+        <input value="Add Todo Item" onclick="addTodo(); return false;" type="submit">
+        <ul id="todoItems"></ul>
+
+
+      </div> 
+    </div>
+  </body>
+</html>
