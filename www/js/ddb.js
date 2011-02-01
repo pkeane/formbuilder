@@ -1,7 +1,6 @@
 var Todo = {};
 var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB;
 
-
 if ('webkitIndexedDB' in window) {
   window.IDBTransaction = window.webkitIDBTransaction;
   window.IDBKeyRange = window.webkitIDBKeyRange;
@@ -15,12 +14,12 @@ Todo.indexedDB.onerror = function(e) {
 
 $(document).ready(function() {
   Todo.indexedDB.open(); // open displays the data previously saved
-  Todo.showLinks();
-
+  //Todo.showLinks();
 });
 
 function addTodo() {
   var todo = document.getElementById('todo');
+  console.log(todo.value);
   Todo.indexedDB.addTodo(todo.value);
   todo.value = '';
 }
@@ -31,15 +30,11 @@ Todo.showLinks = function() {
     for (var k in data) {
       var obj = data[k];
       obj.text = k;
-      Todo.indexedDB.addTodo(obj)
+      //Todo.indexedDB.addTodo(obj)
       //renderTodo(obj);
     }
   });
 };
-
-
-
-
 
 Todo.indexedDB.open = function() {
   var request = indexedDB.open("todos1","pkeane's todo lister");
@@ -74,6 +69,7 @@ Todo.indexedDB.addTodo = function(obj) {
     "url": obj.url,
 		"timeStamp" : new Date().getTime() 
 	};
+  console.log(row);
 	var request = store.put(row);
   request.onsuccess = function(e) {
     console.log(e.value);
