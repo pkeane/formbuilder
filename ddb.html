@@ -21,8 +21,10 @@
     <div id="container">  
       <div id="content">
 
-        <input id="todo" name="todo" placeholder="What do you need to do?" style="width: 200px;" type="text">
-        <input value="Add Todo Item" onclick="addTodo(); return false;" type="submit">
+        <form method="post" action="todos">
+          <input id="todo" name="todo" placeholder="What do you need to do?" style="width: 200px;" type="text">
+          <input value="Add Todo Item" type="submit">
+        </form>
         <ul id="todoItems"></ul>
 
 

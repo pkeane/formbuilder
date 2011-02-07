@@ -14,15 +14,18 @@ Todo.indexedDB.onerror = function(e) {
 
 $(document).ready(function() {
   Todo.indexedDB.open(); // open displays the data previously saved
+  Todo.initSubmit();
   //Todo.showLinks();
 });
 
-function addTodo() {
-  var todo = document.getElementById('todo');
-  Todo.indexedDB.addTodo(todo.value);
-  todo.value = '';
-}
 
+Todo.initSubmit = function() {
+  $('form[action="todos"]').submit(function() {
+    Todo.indexedDB.addTodo($(this).find('input[type="text"]').attr('value'));
+    $('#todo').attr('value','');
+    return false;
+  });
+};
 
 Todo.showLinks = function() {
   $.getJSON('delicious.json?ooxss',function(data) {
@@ -46,7 +49,7 @@ Todo.indexedDB.open = function() {
       // onsuccess is the only place we can create Object Stores
       setVrequest.onfailure = Todo.indexedDB.onerror;
       setVrequest.onsuccess = function(e) {
-        var store = db.createObjectStore("todo",{keyPath: "text"});
+        var store = db.createObjectStore("todo",{keyPath: "key"});
         Todo.indexedDB.getAllTodoItems();
       };
     } else {
@@ -60,9 +63,11 @@ Todo.indexedDB.addTodo = function(txt) {
   var db = Todo.indexedDB.db;
   var trans = db.transaction(["todo"], IDBTransaction.READ_WRITE, 0);
   var store = trans.objectStore("todo");
+  var stamp = new Date().getTime() 
 	var row = {
 		"text": txt, 
-		"timeStamp" : new Date().getTime() 
+		"timeStamp" : stamp,
+    "key": stamp+txt 
 	};
 	var request = store.put(row);
   request.onsuccess = function(e) {
@@ -82,7 +87,8 @@ Todo.indexedDB.getAllTodoItems = function() {
   var store = trans.objectStore("todo");
 
   // Get everything in the store;
-  var cursorRequest = store.openCursor();
+  var cursorRequest = store.openCursor(null,IDBCursor.PREV);
+
 
   cursorRequest.onsuccess = function(e) {
     var result = e.result || cursorRequest.result;
@@ -102,7 +108,7 @@ function renderTodo(row) {
   a.addEventListener("click", function(e) {
     Todo.indexedDB.deleteTodo(row.text);
   }, false);
-  a.textContent = " [Delete]";
+  a.textContent = " [Delete "+row.key+"]";
   li.appendChild(t);
   li.appendChild(a);
   todos.appendChild(li)
