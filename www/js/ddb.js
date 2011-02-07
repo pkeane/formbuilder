@@ -19,7 +19,6 @@ $(document).ready(function() {
 
 function addTodo() {
   var todo = document.getElementById('todo');
-  console.log(todo.value);
   Todo.indexedDB.addTodo(todo.value);
   todo.value = '';
 }
@@ -57,27 +56,20 @@ Todo.indexedDB.open = function() {
   request.onfailure = Todo.indexedDB.onerror;
 };
 
-Todo.indexedDB.addTodo = function(obj) {
-  console.log(obj.url);
+Todo.indexedDB.addTodo = function(txt) {
   var db = Todo.indexedDB.db;
   var trans = db.transaction(["todo"], IDBTransaction.READ_WRITE, 0);
   var store = trans.objectStore("todo");
 	var row = {
-		"text": obj.text, 
-    "tags": obj.tags,
-    "title": obj.title,
-    "url": obj.url,
+		"text": txt, 
 		"timeStamp" : new Date().getTime() 
 	};
-  console.log(row);
 	var request = store.put(row);
   request.onsuccess = function(e) {
-    console.log(e.value);
 		renderTodo(row);
   };
   request.onerror = function(e) {
     console.log('error')
-    console.log(e.value);
   };
 };
 
