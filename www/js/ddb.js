@@ -67,11 +67,11 @@ Todo.indexedDB.addTodo = function(txt) {
 	var row = {
 		"text": txt, 
 		"timeStamp" : stamp,
-    "key": stamp+txt 
+    "key": 'a'+stamp+txt 
 	};
 	var request = store.put(row);
   request.onsuccess = function(e) {
-		renderTodo(row);
+		Todo.renderTodo(row,true);
   };
   request.onerror = function(e) {
     console.log('error')
@@ -87,32 +87,37 @@ Todo.indexedDB.getAllTodoItems = function() {
   var store = trans.objectStore("todo");
 
   // Get everything in the store;
-  var cursorRequest = store.openCursor(null,IDBCursor.PREV);
+  var cursorRequest = store.openCursor(null,IDBCursor.NEXT);
 
 
   cursorRequest.onsuccess = function(e) {
     var result = e.result || cursorRequest.result;
-    if(result == null) return;
-    renderTodo(result.value); // Defined a little later.
+    if(result == null) {
+      Todo.attachDeleteListeners();
+      return;
+    }
+    Todo.renderTodo(result.value,false); // Defined a little later.
     result.continue();
   };
   cursorRequest.onerror = Todo.indexedDB.onerror;
 };
 
-function renderTodo(row) {
+Todo.attachDeleteListeners = function() {
+  $('#todoItems').find('a').click(function() {
+    Todo.indexedDB.deleteTodo($(this).attr('href'));
+    return false;
+  });
+
+};
+
+Todo.renderTodo = function(row,addListeners) {
+  var li = '\n<li id="'+row.key+'">'+row.text+' [<a href="'+row.key+'">x</a>]</li>';
   var todos = document.getElementById("todoItems");
-  var li = document.createElement("li");
-  var a = document.createElement("a");
-  var t = document.createTextNode(row.text);
-  //t.data = row.text;
-  a.addEventListener("click", function(e) {
-    Todo.indexedDB.deleteTodo(row.text);
-  }, false);
-  a.textContent = " [Delete "+row.key+"]";
-  li.appendChild(t);
-  li.appendChild(a);
-  todos.appendChild(li)
-}
+  todos.innerHTML = li + todos.innerHTML;
+  if (addListeners) {
+    Todo.attachDeleteListeners();
+  }
+};
 
 Todo.indexedDB.deleteTodo = function(id) {
   var db = Todo.indexedDB.db;
@@ -120,7 +125,8 @@ Todo.indexedDB.deleteTodo = function(id) {
   var store = trans.objectStore("todo");
   var request = store.delete(id);
   request.onsuccess = function(e) {
-    Todo.indexedDB.getAllTodoItems();  // Refresh the screen
+    //Todo.indexedDB.getAllTodoItems();  // Refresh the screen
+    $('#'+id).remove();
   };
   request.onerror = function(e) {
     console.log(e);

@@ -1,1 +1,1 @@
-python -c 'import SimpleHTTPServer;SimpleHTTPServer.test()'
+python2 -c 'import SimpleHTTPServer;SimpleHTTPServer.test()'
